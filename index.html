@@ -41,16 +41,30 @@
 
     *{ box-sizing: border-box; }
     html,body{ height: 100%; }
+
     body{
       margin:0;
+      min-height: 100vh;
       font-family: var(--sans);
       color: var(--text);
-      background: radial-gradient(1000px 600px at 10% 0%, rgba(124,92,255,.35), transparent 60%),
-                  radial-gradient(900px 500px at 90% 10%, rgba(46,229,157,.25), transparent 55%),
-                  radial-gradient(800px 520px at 50% 100%, rgba(255,77,109,.18), transparent 60%),
-                  var(--bg);
       line-height: 1.6;
       letter-spacing: .1px;
+      background: var(--bg); /* tło właściwe przeniesione na ::before (żeby nie kafelkowało) */
+    }
+
+    /* TŁO: stałe, bez powielania / bez “kafelkowania” */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(1000px 600px at 10% 0%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(46,229,157,.25), transparent 55%),
+        radial-gradient(800px 520px at 50% 100%, rgba(255,77,109,.18), transparent 60%),
+        var(--bg);
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
     a{ color: inherit; text-decoration: none; }
@@ -356,6 +370,7 @@
 
     @media print{
       body{ background:#fff; color:#000; }
+      body::before{ display:none; }
       header, .card{ box-shadow:none; }
       .btnrow{ display:none; }
       .chip{ border:1px solid #ddd; background:#fff; }
@@ -516,14 +531,11 @@
           <span class="badge">support</span>
         </div>
         <div class="bd">
-          <p>
-            W sprawach prywatności:
-          </p>
+          <p>W sprawach prywatności:</p>
+
           <p class="notice" style="border-color: rgba(124,92,255,.35);">
-            <strong>E-mail:</strong> <span id="contactEmail">TU_WSTAW_EMAIL</span><br />
-            <span style="color: var(--muted);">
-              (Możesz też podać link do GitHub Issues.)
-            </span>
+            <strong>E-mail:</strong>
+            <a href="mailto:croapplications@gmail.com">croapplications@gmail.com</a>
           </p>
 
           <div class="btnrow" role="group" aria-label="Akcje">
@@ -577,7 +589,7 @@
             <span class="chev" aria-hidden="true"></span>
           </summary>
           <div class="ans">
-            Skontaktuj się przez e-mail podany w sekcji Kontakt lub użyj GitHub Issues.
+            Skontaktuj się przez e-mail podany w sekcji Kontakt.
           </div>
         </details>
       </aside>
@@ -589,11 +601,9 @@
         </div>
         <div class="bd">
           <p>
-            Ten plik jest gotowy do publikacji jako strona. Umieść go w repozytorium jako <code class="badge">index.html</code>,
-            a następnie włącz <strong>GitHub Pages</strong> dla gałęzi (np. <code class="badge">main</code>).
-          </p>
-          <p style="margin-bottom:0;">
-            Zmień <code class="badge">TU_WSTAW_EMAIL</code> na swój kontakt albo wstaw link do Issues.
+            Ten plik jest gotowy do publikacji jako strona. Umieść go w repozytorium jako
+            <code class="badge">index.html</code>, a następnie włącz <strong>GitHub Pages</strong> dla gałęzi
+            (np. <code class="badge">main</code>).
           </p>
         </div>
       </section>
